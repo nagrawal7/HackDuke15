@@ -17,6 +17,7 @@ Template.teacher.events({
       var classID = Classes.insert({
         name: className,
         email: teacherEmail,
+        groupSize: groupSize,
         preferences: {
           randomize: isChecked
         },
