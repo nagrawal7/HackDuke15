@@ -2,19 +2,15 @@
 	<h1> Student</h1>
 	<body>
 		My Class:
-		<input id = "classroom" type = "text">
-		<!-- <div class = "dropdown">
-			<button 
-			class= "btn btn-primary dropdown-toggle" 
-			type = "button" 
-			data-toggle = "dropdown"> 
-			DropDown Example
-			<span class = "caret"></span></button>
-		</div> -->
+		<select id = "dropdown">
+			{{#each classes}}
+			<option>{{this}}</option>
+			{{/each}}
+		</select>
 		<br>
-		Name: <input id = "studentname" type = "text">
+		Name: <input id = "studentName" type = "text">
 		<br>
-		Email: <input id = "studentemail" type = "text">
+		Email: <input id = "studentEmail" type = "text">
 		<br>
 		Comfort in Class: <input id = "comfort" type = "text"> (1-10)
 		<br>

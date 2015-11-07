@@ -1,7 +1,19 @@
+
+Template.student.helpers({
+	classes: function() {
+		var classes = Classes.find().fetch();
+		var classNames = [];
+		for (var i =0; i < classes.length; i++) {
+			classNames.push(classes[i].name);
+		}
+		return classNames;
+	}
+});
+
 Template.student.events({
   'click #submit': function () {
-    var kid = $('#studentname').val();
-	var email = $('#studentemail').val();
+    var kid = $('#studentName').val();
+	var email = $('#studentEmail').val();
 	var level = $('comfort').val();
 	var f1 = $('friend1').val();
 	var f2 = $('friend2').val();
