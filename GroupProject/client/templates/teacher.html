@@ -1,5 +1,33 @@
 <template name="teacher">
   <h1>Teacher</h1>
-  <button>Teacher: Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+
+  Class name:
+  <input id="className" type="text"><br>
+
+  Teacher's Email:
+  <input id="teacherEmail" type="email"><br>
+
+  Group size:
+  <input id="groupSize" type="number" value="10" min="1" ><br>
+
+  Import Students and Data
+  <input type="file" id="classData" accept=".csv"><br>
+
+  <input id="randomize" type="checkbox">Randomize?
+  <br>
+  <br>
+
+  Assignment Preferences
+  <ul>
+    <li>
+      Friends
+    </li>
+    <li>
+      Known
+    </li>
+    <li>
+      Unkown
+    </li>
+  </ul>
+  <button id="createClass">Submit</button>
 </template>
