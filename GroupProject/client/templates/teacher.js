@@ -34,9 +34,7 @@ Template.teacher.events({
             classID: classID,
             grade: parseInt(data[1]),
             friends: [],
-            known: [],
             disklike: [],
-            comfort: -1
           };
           var id = Students.insert(student);
           studentIDs.push(id);

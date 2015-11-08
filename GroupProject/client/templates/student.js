@@ -16,25 +16,63 @@ Template.student.helpers({
 			indices.push(i);
 		}
 		return indices;
+	},
+
+	students: function() {
+		return Session.get("students");
 	}
 });
 
 Template.student.events({
-  'click #submit': function () {
-    var kid = $('#studentName').val();
-	var email = $('#studentEmail').val();
-	var level = $('comfort').val();
-	var f1 = $('friend1').val();
-	var k1 = $('known1').val();
-	var d1 = $('dislike1').val();
-	console.log(email);
-  },
+	'click #submit': function () {
+		var kid = $('#studentName').val();
+		var email = $('#studentEmail').val();
+		var c = Classes.findOne({name: $("#dropdown").val()});
+		var friends = [];
+		$(".friends").each(function(index, element) {
+			var value = $(element).val();
+			if (value !== "----") {
+				var stu = Students.findOne({name: value, classID: c._id});
+				friends.push(stu._id);
+			}	
+		});
+		var dislikes = [];
+		$(".dislikes").each(function(index, element) {
+			var value = $(element).val();
+			if (value !== "----") {
+				var stu = Students.findOne({name: value, classID: c._id});
+				dislikes.push(stu._id);
+			}
+		});
 
-  "change #dropdown": function() {
-  	var c = Classes.findOne({name: $("#dropdown").val()});
-  	console.log(c);
-  	Session.set("groupSize", c.groupSize);
-  	$("#peopleLists").show();
-  	console.log(Session.get("groupSize"));
-  }
+		var stu = Students.findOne({name: kid, classID: c._id});
+		Students.update(stu._id, {$set: {email: email}});
+		Students.update(stu._id, {$addToSet: {friends: {$each: friends}}});
+		Students.update(stu._id, {$addToSet: {dislike: {$each: dislikes}}});
+	},
+
+	"change #dropdown": function() {
+		if ($("#dropdown").val() === "----") {
+			$("#peopleLists").hide();
+			return;
+		}
+		var c = Classes.findOne({name: $("#dropdown").val()});
+		Session.set("groupSize", c.groupSize);
+		var students = [];
+		for (var i = 0; i < c.students.length; i ++) {
+			students.push(Students.findOne(c.students[i]).name);
+		}
+		Session.set("students", students);
+		$("#peopleLists").show();
+	},
+
+	"change #friends": function() {
+		var s = Students.findOne({name: $("#friends").val()});
+		Session.set("friends", s.name )
+	},
+
+	"change #enemies": function() {
+		var s = Students.findOne({name: $("#friends").val()});
+	}
+
 });
