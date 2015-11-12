@@ -13,29 +13,33 @@
 		<br>
 		Email: <input id = "studentEmail" type = "text">
 		<br>
-		Comfort in Class: <input id = "comfort" type = "text"> (1-10)
-		<br>
 		<div id="peopleLists" hidden>
 		Friends: 
 		<br>
 		{{#each groupSize}}
-			<input type = "text">
-			<br>
-		{{/each}}
-		<br>
-		I know them: 
-		<br>
-		{{#each groupSize}}
-			<input type = "text">
+			<select class = "friends">
+				<option> ---- </option>
+				{{#each students}}
+				<option>{{this}}</option>
+				{{/each}}
+			</select>
+
 			<br>
 		{{/each}}
 		<br>
 		Dislike: 
-		<br>
+	<br>
 		{{#each groupSize}}
-			<input type = "text">
+			<select class = "dislikes">
+				<option> ---- </option>
+				{{#each students}}
+				<option>{{this}}</option>
+				{{/each}}
+			</select>
+
 			<br>
 		{{/each}}
+		<br>
 		<button type = "button" id = "submit"> Submit
 		</button>
 	</div>
