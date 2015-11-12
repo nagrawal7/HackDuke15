@@ -18,6 +18,7 @@ Template.teacher.events({
         name: className,
         email: teacherEmail,
         groupSize: groupSize,
+        submitted: 0,
         preferences: {
           randomize: isChecked
         },
@@ -34,7 +35,7 @@ Template.teacher.events({
             classID: classID,
             grade: parseInt(data[1]),
             friends: [],
-            disklike: [],
+            dislike: [],
           };
           var id = Students.insert(student);
           studentIDs.push(id);
@@ -42,6 +43,7 @@ Template.teacher.events({
 
       Classes.update(classID, {$addToSet: {students: {$each: studentIDs}}});
       console.log("finished creating class!");
+      Router.go('/thankyou');
     };
 
     reader.onerror = function(evt) {

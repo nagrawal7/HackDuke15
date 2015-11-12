@@ -4,3 +4,4 @@ Router.route('/', function () {
 
 Router.route('/student');
 Router.route('/teacher');
+Router.route('/thankyou');

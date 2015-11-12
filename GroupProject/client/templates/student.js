@@ -28,13 +28,16 @@ Template.student.events({
 		var kid = $('#studentName').val();
 		var email = $('#studentEmail').val();
 		var c = Classes.findOne({name: $("#dropdown").val()});
-		var friends = [];
+
+		Classes.update(c._id, {$set: {submitted: c.submitted + 1}});
+
+		var friendz = [];
 		$(".friends").each(function(index, element) {
 			var value = $(element).val();
 			if (value !== "----") {
 				var stu = Students.findOne({name: value, classID: c._id});
-				friends.push(stu._id);
-			}	
+				friendz.push(stu._id);
+			}
 		});
 		var dislikes = [];
 		$(".dislikes").each(function(index, element) {
@@ -46,9 +49,20 @@ Template.student.events({
 		});
 
 		var stu = Students.findOne({name: kid, classID: c._id});
-		Students.update(stu._id, {$set: {email: email}});
-		Students.update(stu._id, {$addToSet: {friends: {$each: friends}}});
-		Students.update(stu._id, {$addToSet: {dislike: {$each: dislikes}}});
+		console.log(stu);
+		if (stu) {
+			Students.update(stu._id,
+				{
+						$set: {email: email},
+						$addToSet: {friends: {$each: friendz}},
+						$addToSet: {dislike: {$each: dislikes}}
+				});
+
+			console.log("Response accepted!");
+			Router.go('/thankyou');
+		} else {
+			alert("Please enter a valid student name for this class");
+		}
 	},
 
 	"change #dropdown": function() {
